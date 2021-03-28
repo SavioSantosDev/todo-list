@@ -1,9 +1,18 @@
+import dotenv from 'dotenv';
+dotenv.config({
+  path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
+});
+
 import express from 'express';
+
+import createConnection from './database/';
+import routes from './routes';
 
 class App {
   app;
 
   constructor() {
+    createConnection();
     this.app = express();
     this.middlewares();
     this.routes();
@@ -14,9 +23,7 @@ class App {
   }
 
   routes() {
-    this.app.use((req, res) => {
-      return res.send('Hello world!');
-    });
+    this.app.use(routes);
   }
 }
 

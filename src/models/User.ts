@@ -40,7 +40,7 @@ export default class User implements IUser {
   })
   password_hash!: string;
 
-  password!: string; // Campo virtual
+  password!: string; // Virtual
 
   @CreateDateColumn()
   created_at!: Date;

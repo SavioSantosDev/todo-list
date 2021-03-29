@@ -57,18 +57,15 @@ describe('Authentication', () => {
 
     expect(response.body).toHaveProperty('token');
   });
-});
 
-describe('Authentication in private routes with JWT token', () => {
   it('should not be able to access private routes without JWT token', async () => {
-    const response = await request(app).get('/dashboard');
-
+    const response = await request(app).get('/tarefas');
     expect(response.status).toBe(401);
   });
 
   it('should not be able to access private routes with invalid JWT token', async () => {
     const response = await request(app)
-      .get('/dashboard')
+      .get('/tarefas')
       .set('Authorization', 'Bearer InvalidToken123ni31');
 
     expect(response.status).toBe(401);
@@ -78,7 +75,7 @@ describe('Authentication in private routes with JWT token', () => {
     const user = new User();
 
     const response = await request(app)
-      .get('/dashboard')
+      .get('/tarefas')
       .set('Authorization', `Bearer ${user.generateToken()}`);
 
     expect(response.status).toBe(200);

@@ -1,16 +1,16 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateUsersTable1616766164117 implements MigrationInterface {
+export class createTaskGroupTable1616954659726 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: 'users',
+        name: 'task_groups',
         columns: [
           {
             name: 'id',
             type: 'uuid',
-            isGenerated: true,
             isPrimary: true,
+            isGenerated: true,
             generationStrategy: 'uuid',
           },
           {
@@ -19,18 +19,22 @@ export class CreateUsersTable1616766164117 implements MigrationInterface {
             length: '255',
           },
           {
-            name: 'email',
-            type: 'varchar',
-            isUnique: true,
-          },
-          {
-            name: 'password_hash',
+            name: 'description',
             type: 'varchar',
           },
           {
-            name: 'created_at',
-            type: 'timestamp',
-            default: 'now()',
+            name: 'user_id',
+            type: 'uuid',
+          },
+        ],
+        foreignKeys: [
+          {
+            name: 'task_groups',
+            columnNames: ['user_id'],
+            referencedTableName: 'users',
+            referencedColumnNames: ['id'],
+            onUpdate: 'CASCADE',
+            onDelete: 'CASCADE',
           },
         ],
       }),
@@ -38,6 +42,6 @@ export class CreateUsersTable1616766164117 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('users');
+    await queryRunner.dropTable('task_groups');
   }
 }

@@ -32,8 +32,8 @@ export default async function (
     // }
 
     // Passing email and user id forward
-    res.locals.id = id;
-    res.locals.email = email;
+    res.locals.userId = id;
+    res.locals.userEmail = email;
     return next();
   } catch (err) {
     return res.status(401).json({ error: 'Invalid or expired token!' });

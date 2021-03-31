@@ -130,6 +130,9 @@ describe('Index the Task Groups', () => {
       'description',
       'Tasks of the my School',
     );
+    expect(response.body[0]).toHaveProperty('id');
+    expect(response.body[0]).toHaveProperty('user');
+    expect(response.body[0]).toHaveProperty('tasks');
   });
 
   it('should not show a task group when pass an invalid token', async () => {
@@ -152,5 +155,8 @@ describe('Index the Task Groups', () => {
       'description',
       'Tasks of the my School',
     );
+    expect(response.body).toHaveProperty('id');
+    expect(response.body).toHaveProperty('user');
+    expect(response.body).toHaveProperty('tasks');
   });
 });

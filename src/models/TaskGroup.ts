@@ -3,8 +3,10 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
+import Task from './Task';
 import User from './User';
 
 export interface ITasKGroup {
@@ -30,4 +32,10 @@ export default class TaskGroup implements ITasKGroup {
   @ManyToOne(() => User)
   @JoinColumn({ name: 'user_id' })
   user!: User;
+
+  @OneToMany(() => Task, (task) => task.task_group, {
+    cascade: ['insert', 'update'],
+  })
+  @JoinColumn({ name: 'task_group_id' })
+  tasks!: Task[];
 }

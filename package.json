@@ -8,6 +8,7 @@
     "test": "NODE_ENV=test jest",
     "test:watch": "NODE_ENV=test jest --watch --noStackTrace",
     "test:coverage": "jest --coverage",
+    "test:clear": "jest --clearCache",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "keywords": [],

@@ -47,29 +47,38 @@ export default class TaskGroupController {
     req: Request,
     res: Response,
   ): Promise<Response<unknown, Record<string, unknown>>> {
-    const taskGroupRepository = getCustomRepository(TaskGroupRepository);
-
-    const taskGroups = await taskGroupRepository.find({
-      relations: ['user'],
-    });
-    return res.json(taskGroups);
+    try {
+      const taskGroupRepository = getCustomRepository(TaskGroupRepository);
+      const taskGroups = await taskGroupRepository.find({
+        relations: ['user', 'tasks'],
+      });
+      return res.json(taskGroups);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: 'Internal server error!' });
+    }
   }
 
   async show(
     req: Request,
     res: Response,
   ): Promise<Response<unknown, Record<string, unknown>>> {
-    const taskGroupRepository = getCustomRepository(TaskGroupRepository);
-    const { taskGroupId } = req.params;
+    try {
+      const taskGroupRepository = getCustomRepository(TaskGroupRepository);
+      const { taskGroupId } = req.params;
 
-    const taskGroup = await taskGroupRepository.findOne(
-      { id: taskGroupId },
-      { relations: ['user'] },
-    );
-    if (!taskGroup) {
-      return res.status(401).json({ error: 'Task Group not exist!' });
+      const taskGroup = await taskGroupRepository.findOne(
+        { id: taskGroupId },
+        { relations: ['user', 'tasks'] },
+      );
+      if (!taskGroup) {
+        return res.status(401).json({ error: 'Task Group not exist!' });
+      }
+
+      return res.json(taskGroup);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ error: 'Internal server error!' });
     }
-
-    return res.json(taskGroup);
   }
 }

@@ -1,18 +1,17 @@
 {
   "name": "todo-list",
   "version": "1.0.0",
-  "description": "",
+  "description": "Programa para listagem de tarefas à serem executadas.",
   "main": "src/index.js",
   "scripts": {
     "dev": "ts-node-dev src/server.ts --transpile-only --ignore-watch node_modules",
     "test": "NODE_ENV=test jest",
-    "test:watch": "NODE_ENV=test jest --watch --noStackTrace",
-    "test:coverage": "jest --coverage",
-    "test:clear": "jest --clearCache",
+    "test:watch": "NODE_ENV=test jest --watch",
+    "test:coverage": "NODE_ENV=test jest --coverage",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sávio Santos",
   "license": "ISC",
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
